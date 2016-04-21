@@ -1,6 +1,6 @@
 [
 	{
-		"caption": "Append or Prepend File",
+		"caption": "Draft File",
 		"command": "drafts_prompt"
 	}
 ]

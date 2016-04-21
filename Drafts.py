@@ -3,9 +3,11 @@ import sublime_plugin
 import time
 import re
 
+
 class InsertContentCommand(sublime_plugin.TextCommand):
     def run(self, edit, point, content):
         self.view.insert(edit, point, content)
+
 
 class DraftAppendCommand(sublime_plugin.TextCommand):
 
@@ -19,7 +21,8 @@ class DraftAppendCommand(sublime_plugin.TextCommand):
         if not view.is_loading():
             view_size = view.size()
             # Paste the text in the end of the file
-            view.run_command("insert_content", {"point": view_size, "content": content})
+            view.run_command(
+                "insert_content", {"point": view_size, "content": content})
         else:
             sublime.set_timeout(
                 lambda: self.append_text(view, content), 10)
@@ -36,7 +39,8 @@ class DraftPrependCommand(sublime_plugin.TextCommand):
     def prepend_text(self, view, content):
         if not view.is_loading():
             # Paste the text in the beginning of the file
-            view.run_command("insert_content", {"point": 0, "content": content})
+            view.run_command(
+                "insert_content", {"point": 0, "content": content})
         else:
             sublime.set_timeout(lambda: self.prepend_text(view, content), 10)
 
@@ -46,7 +50,6 @@ class DraftsPromptCommand(sublime_plugin.TextCommand):
     # Read prompt_config from settings
     prompt_config = sublime.load_settings(
         "Drafts.sublime-settings").get("prompt_config")
-    print(prompt_config)
 
     def run(self, edit):
         panel_items = []
@@ -56,12 +59,18 @@ class DraftsPromptCommand(sublime_plugin.TextCommand):
         window.show_quick_panel(panel_items, self.draft_action)
 
     def draft_action(self, index):
+        # If there is no selection, do nothing
+        if index == -1: return
+
+        # get the chosen action
+        name = self.prompt_config[index]['name']
         action = self.prompt_config[index]['action']
         file = self.prompt_config[index]['file']
         content = self.prompt_config[index]['content']
         content = self.content_handler(content)
 
         if action == "prepend":
+            sublime.status_message('Chosen item: ' + name)
             self.view.run_command(
                 "draft_prepend", {"file": file, "content": content})
         elif action == "append":

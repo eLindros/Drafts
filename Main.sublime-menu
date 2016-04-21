@@ -12,20 +12,20 @@
 				"children":
 				[
 					{
-						"caption": "Insert File",
+						"caption": "Drafts",
 						"children":
 						[
 							{
 								"command": "open_file", "args":
 								{
-									"file": "${packages}/Insert File/InsertFile.sublime-settings"
+									"file": "${packages}/Drafts/Drafts.sublime-settings"
 								},
 								"caption": "Settings – Default"
 							},
 							{
 								"command": "open_file", "args":
 								{
-									"file": "${packages}/User/InsertFile.sublime-settings"
+									"file": "${packages}/User/Drafts.sublime-settings"
 								},
 								"caption": "Settings – User"
 							}

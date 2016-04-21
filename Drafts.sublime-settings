@@ -1,0 +1,29 @@
+{   // Configure the user actions for your Drafts 
+    "prompt_config": [
+        { "name": "New Journal Entry",  // Description in the Prompt
+          "action": "prepend", // Possible actions: "prepend" to given file, "append" to file 
+          "file": "/Journal/Journal.md", // Path to file to append/prepend the draft
+          // The file will be created if it doesn't exists. It opens, so that you can inspect 
+          // the changes, but you must save it afterwards.
+          "content": "## [[date|%Y-%m-%d %H:%M, %A]]\n[[draft]]\n\n" // Content of the draft
+          // [[draft]] will be replaced by the whole text in your current draft
+          // [[date]] will be replaced by the date in the default format: %Y-%m-%d %H:%M,
+          // You can give another srftime compatible format with [[date|your format]]
+        },
+        { "name": "New Textidea",
+          "action": "prepend",
+          "file": "/Texts/Textsideas.md",
+          "content": "## [[date|%Y-%m-%d %H:%M]]\n[[draft]]\n\n"
+        },
+        { "name": "New Book",
+          "action": "append",
+          "file": "/Todo/Lists/Books.taskpaper",
+          "content": "- [[draft]] ([[date]])\n"
+        },
+        { "name": "New Website",
+          "action": "append",
+          "file": "/Todo/Lists/Web.taskpaper",
+          "content": "- [[draft]] ([[date]])\n"
+        },
+    ],
+}
