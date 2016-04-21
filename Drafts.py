@@ -46,12 +46,13 @@ class DraftPrependCommand(sublime_plugin.TextCommand):
 
 
 class DraftsPromptCommand(sublime_plugin.TextCommand):
-
-    # Read prompt_config from settings
-    prompt_config = sublime.load_settings(
-        "Drafts.sublime-settings").get("prompt_config")
+    prompt_config = {}
 
     def run(self, edit):
+        # Read prompt_config from settings
+        self.prompt_config = sublime.load_settings(
+        "Drafts.sublime-settings").get("prompt_config")
+
         panel_items = []
         for setting in self.prompt_config:
             panel_items.append([setting['name'], setting['file']])
@@ -60,7 +61,8 @@ class DraftsPromptCommand(sublime_plugin.TextCommand):
 
     def draft_action(self, index):
         # If there is no selection, do nothing
-        if index == -1: return
+        if index == -1:
+            return
 
         # get the chosen action
         name = self.prompt_config[index]['name']
